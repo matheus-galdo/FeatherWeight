@@ -103,20 +103,16 @@ class Route{
      * @param  mixed $requestedUri
      * @return callback
      */
-    public function requestController($requestedUri)
+    public function requestController(string $requestedUri, string $namespace = "App\\Controller\\")
     {   
         $appName = "miniFramework"; //definir nas configs !important
         $requestedUri = substr($requestedUri, strpos($requestedUri,$appName) + strlen($appName));
-
-        //var_dump($_SERVER['REQUEST_METHOD']);
-        // var_dump($requestedUri);
-        // var_dump($this->routeList);
 
         if (in_array($requestedUri,$this->routeList)) {
             $resourcePosition = array_search($requestedUri, $this->routeList);
 
             $resource = [
-                "App\\Controller\\".ucfirst($this->resourceController[$resourcePosition])."Controller",
+                $namespace.ucfirst($this->resourceController[$resourcePosition])."Controller",
                 $this->resourceMethod[$resourcePosition]
             ];
 
@@ -129,7 +125,6 @@ class Route{
             return call_user_func_array($resource, $resourceParameters);
             
         }
-        // $this->listarRotas();
         return "view de erro 401"; 
     }
     
