@@ -1,0 +1,24 @@
+{
+    "name": "galdo/mini-framework",
+    "description": "Mini-framework para gerenciamento de rotas, padr\u0000o MVC, ORM, sess\u0000es e templates com twig",
+    "require": {
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "monolog/monolog": "^2.1",
+        "phpunit/phpunit": "^9.3"
+    },
+    "autoload": {
+        "psr-4" : {
+            "App\\" : "App/",
+            "Core\\" : "Core/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Galdo",
+            "email": "matheus.kho@gmail.com"
+        }
+    ]
+}
