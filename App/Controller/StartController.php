@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Core\Lib\View;
+use Core\Presentation\View;
 
 class StartController{
     public static function index(View $view)

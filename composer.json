@@ -2,7 +2,8 @@
     "name": "galdo/mini-framework",
     "description": "Mini-framework para gerenciamento de rotas, padr\u0000o MVC, ORM, sess\u0000es e templates com twig",
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "filp/whoops": "^2.7"
     },
     "require-dev": {
         "monolog/monolog": "^2.1",

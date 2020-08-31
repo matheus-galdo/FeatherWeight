@@ -74,7 +74,7 @@ class Database{
 		}
 		$prepare->execute();
 
-		while($row = $prepare->fetch()) {
+		while($row = $prepare->fetch(PDO::FETCH_ASSOC) !== false){
             $result[] = $row;
 		}
 		

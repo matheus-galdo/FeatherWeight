@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace Core\Route;
 
 use App\Controller\StartController;
 use App\Controller\TestController;
@@ -8,7 +8,7 @@ use Core\Presentation\View;
 /**
  * Cria e gerencia as Rotas da aplicação
  */
-class Route{
+class RouteRequest{
     protected $routeList;
     protected $routeListType;
     protected $resourceController;

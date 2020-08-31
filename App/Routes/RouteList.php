@@ -1,6 +1,6 @@
 <?php
 namespace App\Routes;
-use Core\Route;
+use Core\Route\RouteRequest;
 
 class RouteList{    
     /*
@@ -12,7 +12,7 @@ class RouteList{
     | automaticamente carregadas pelo core do framework que as deixará disponíveis
     |
     */
-    public function __construct(Route $route){
+    public function __construct(RouteRequest $route){
         $route->get("/", "start");
         $route->get("salve", "test");
         $route->get("outra", "start@logar");
