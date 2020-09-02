@@ -16,9 +16,6 @@ class RouteList implements RouteInterface{
     */
     public function createRoutes(RouteRegister $route){
         $route->get("/", "start");
-        $route->get("salve", "test");
-        $route->get("outra", "start@logar");
-        $route->get("mais/rota", "test@ota");
     }
 }
 

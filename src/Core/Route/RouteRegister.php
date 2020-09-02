@@ -32,7 +32,7 @@ class RouteRegister{
      */
     public function get(string $uri, $resource, array $data = [])
     {
-        $this->registerRoute("get", $uri, $resource, $data);
+        $this->registerRoute("GET", $uri, $resource, $data);
     }
 
         
@@ -53,7 +53,7 @@ class RouteRegister{
      */
     public function post(string $uri, $resource, array $data = [])
     {
-        $this->registerRoute("post", $uri, $resource, $data);
+        $this->registerRoute("POST", $uri, $resource, $data);
     }
 
     public function view($uri, $data = [])

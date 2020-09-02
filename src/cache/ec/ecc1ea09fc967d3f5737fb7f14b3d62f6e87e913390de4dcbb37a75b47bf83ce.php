@@ -12,8 +12,8 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* opa.html */
-class __TwigTemplate_bb2ffcf67bef3503a3a706b45019bd90ff27e6caef0f9630e13f45d4159db0c8 extends Template
+/* 404.html */
+class __TwigTemplate_6e1e6f565902efa129b9073aa6e65fefea7d178f3b1ef04edcfb3b4a4cdcc137 extends Template
 {
     private $source;
     private $macros = [];
@@ -34,12 +34,20 @@ class __TwigTemplate_bb2ffcf67bef3503a3a706b45019bd90ff27e6caef0f9630e13f45d4159
     {
         $macros = $this->macros;
         // line 1
-        echo "a view renderizou certinho";
+        echo "<img src=\"";
+        echo twig_escape_filter($this->env, ($context["publicPath"] ?? null), "html", null, true);
+        echo "images/logoFull.png\" alt=\"\">
+<h1>Erro 404 - Página não encontrada</h1>";
     }
 
     public function getTemplateName()
     {
-        return "opa.html";
+        return "404.html";
+    }
+
+    public function isTraitable()
+    {
+        return false;
     }
 
     public function getDebugInfo()
@@ -49,6 +57,6 @@ class __TwigTemplate_bb2ffcf67bef3503a3a706b45019bd90ff27e6caef0f9630e13f45d4159
 
     public function getSourceContext()
     {
-        return new Source("", "opa.html", "C:\\wamp64\\www\\miniFramework\\views\\opa.html");
+        return new Source("", "404.html", "C:\\wamp64\\www\\miniFramework\\views\\404.html");
     }
 }

@@ -2,22 +2,19 @@
 
 namespace App\Controller;
 
-use Core\Presentation\View;
+use FeatherWeight\View\View;
 
 class StartController{
-    public static function index()
+    public static function index(View $view)
     {
-        return "isso aqui é o method INDEX função da controller TEST";
-        // return $view->render("opa");
+        
+        $content = $view->render("home");
+        return $view->renderTemplate("FeatherWeight", $content, ["teste" => "main.css"]);
     }
 
-    public static function logar()
+    public static function erro(View $view)
     {
-        return "isso aqui é o method LOGAR função da controller TEST";
-    }
-
-    public static function ota()
-    {
-        return "isso aqui é o method OTA função da controller TEST";
+        $content = $view->render("404");
+        return $view->renderTemplate("404 - Not Found", $content, ["teste" => "main.css"]);
     }
 }

@@ -2,7 +2,7 @@
 namespace FeatherWeight\Http;
 
 use App\Routes\RouteList;
-use FeatherWeight\Exceptions\HttpVerbException;
+use FeatherWeight\View\View;
 use FeatherWeight\Route\Sources;
 use FeatherWeight\Route\RouteInterface;
 use FeatherWeight\Route\RouteRegister;
@@ -15,6 +15,7 @@ use function PHPUnit\Framework\isNull;
  * Recebe uma requisição http e define qual resource executar 
  */
 class HttpHandler{
+    private $method;
     private $requestedUri;
     private $responseType = "webPage";
     private $contentType;
@@ -28,7 +29,7 @@ class HttpHandler{
 
         
         $configurations = json_decode(file_get_contents(__DIR__."/../../../config/config.json"));    
-
+        define("APLICATION_NAME", $configurations->mainDirectory);
 
         $filesExtensions = [
             //image files
@@ -75,7 +76,6 @@ class HttpHandler{
         $whoops->register(); //em caso de algum erro de execução, chama o prettyPageHandler para debugar a pagina
 
 
-
         
         //registra as rotas definidas pelo desenvolvedor da aplicação
         $route = new RouteRegister;
@@ -96,9 +96,9 @@ class HttpHandler{
             return $this->getFileResource($this->requestedUri, $resourceRoutes);
         }
 
-        throw new \Exception("Resource não encontrado: verifique se a rota acessada foi cadastrada
-         corretamente em Routes/RouteList.php", 1);
-        return "not found"; 
+        header("HTTP/1.0 404 Not Found");
+        
+        return call_user_func_array([$namespace."StartController", "erro"], ["viewObj" => new View()]);
     }
 
     
@@ -112,12 +112,20 @@ class HttpHandler{
     public function getControllerResource(RouteRegister $route, string $namespace)
     {
         $resourcePosition = array_search($this->requestedUri, $route->getExistingRoutes());
+        $resouceHttpType = $route->getTypeOfExistingRoutes()[$resourcePosition];
+
+        if($resouceHttpType !== $this->method){
+
+            throw new \Exception("Esta pagina aceita apenas requisições do tipo ".$resouceHttpType, 1);
+
+            return "erro";
+        }
         $resource = [
             $namespace.ucfirst($route->getResourceController($resourcePosition))."Controller",
             $route->getResourceMethod($resourcePosition)
         ];
         $resourceParameters = [
-            //  "viewObj" => new View()
+            "viewObj" => new View()
         ];
         return call_user_func_array($resource, $resourceParameters);    
     }
@@ -132,10 +140,10 @@ class HttpHandler{
     public function getFileResource(string $requestedUri, RouteRegister $resourceRoutes)
     {
         $resourcePosition = array_search($this->requestedUri, $resourceRoutes->getExistingRoutes());
-
-        if($resourceRoutes->getTypeOfExistingRoutes()[$resourcePosition] !== "get"){
-            throw new HttpVerbException("Esta pagina aceita apenas requisições do tipo GET", 1);
-            return "";
+        $resouceHttpType = $resourceRoutes->getTypeOfExistingRoutes()[$resourcePosition];
+        if($resouceHttpType !== $this->method){
+            throw new \Exception("Esta pagina aceita apenas requisições do tipo ".$resouceHttpType, 1);
+            return "erro";
         }
 
         header("Content-type: $this->contentType");

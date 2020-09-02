@@ -1,8 +1,19 @@
-<link rel="stylesheet" href="/testes/miniFramework/public/css/main.css">
-<!-- {{style | raw }} -->
-<div class="">Cabeçalho</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{mainCss}}">
+    <link rel="shortcut icon" href="{{publicPath}}images/logoFeather.png" type="image/x-icon">
+    <title>{{title}}</title>
 
-<script src="../js/main.js"></script>
-<img src="../images/delcidio.jpg" alt="">
-<img src="/testes/miniFramework/public/images/wolftech.png" alt="">
+    {{style | raw }}
+</head>
+<body>
+    <div id="main-container">
+        {{content | raw}}
+    </div>
+    
+</body>
+</html>
 
