@@ -22,21 +22,8 @@ class TestController{
 
     public static function css(View $view)
     {
-        header("Content-type: text/css; charset=utf-8");
-        return "div{
-    color: red;
-}";
+        
     }
 
-    public static function js(View $view)
-    {
-        header("Content-type: text/js; charset=utf-8");
-        return "alert('funcionou')";
-    }
-
-    public static function image(View $view)
-    {
-        header("Content-type: image/jpeg");
-        return file_get_contents(__DIR__."/../../public/images/delcidio.jpg");
-    }
+   
 }

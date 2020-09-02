@@ -1,7 +1,6 @@
 <?php
-namespace Core\Presentation;
+namespace FeatherWeight\Presentation;
 
-use App\User;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 class View{

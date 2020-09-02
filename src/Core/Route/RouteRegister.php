@@ -94,9 +94,33 @@ class RouteRegister{
         }
     }
 
+
+
+    function registerFileRoutes(RouteRegister $route, string $dir) {
+        $files = [];
+        $tree = glob(rtrim($dir, '/') . '/*');
+        if (is_array($tree)) {
+            foreach($tree as $file) {
+                if (is_dir($file)) {
+                    $files[] = $this->registerFileRoutes($route, $file);
+                } elseif (is_file($file)) {
+                    $routeName = substr($file, 58);
+                    $route->get($routeName, "");
+                    $files[] = $file;
+                }
+            }
+        }
+    }
+
+
     public function getExistingRoutes()
     {
         return $this->routeList;
+    }
+
+    public function getTypeOfExistingRoutes()
+    {
+        return $this->routeListType;
     }
 
     public function getResourceMethod(int $position)

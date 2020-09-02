@@ -2,6 +2,7 @@
 namespace FeatherWeight\Http;
 
 use App\Routes\RouteList;
+use FeatherWeight\Exceptions\HttpVerbException;
 use FeatherWeight\Route\Sources;
 use FeatherWeight\Route\RouteInterface;
 use FeatherWeight\Route\RouteRegister;
@@ -17,6 +18,7 @@ class HttpHandler{
     private $requestedUri;
     private $responseType = "webPage";
     private $contentType;
+    private $projectMainDirectory = __DIR__.'/../../../';
    
     public function __construct()
     {
@@ -70,40 +72,76 @@ class HttpHandler{
     {    
         $whoops = new Run();
         $whoops->pushHandler(new PrettyPageHandler);
-        $whoops->register();
-
+        $whoops->register(); //em caso de algum erro de execução, chama o prettyPageHandler para debugar a pagina
 
 
 
         
+        //registra as rotas definidas pelo desenvolvedor da aplicação
         $route = new RouteRegister;
         $aplicattionRoutes = new RouteList;
         $aplicattionRoutes->createRoutes($route);
-
+      
+        //retorna a chamada de uma controller
         if (in_array($this->requestedUri,$route->getExistingRoutes())) {
-            $resourcePosition = array_search($this->requestedUri, $route->getExistingRoutes());
-            $resource = [
-                $namespace.ucfirst($route->getResourceController($resourcePosition))."Controller",
-                $route->getResourceMethod($resourcePosition)
-            ];
-            $resourceParameters = [
-                //  "viewObj" => new View()
-            ];
-
-            return call_user_func_array($resource, $resourceParameters);
-            
+            return $this->getControllerResource($route, $namespace);
         }
 
-        $sourceRoutes = new Sources;
-        $sourceRoutes->createRoutes($route);
-        if (in_array($this->requestedUri,$route->getExistingRoutes())) {
-            
-            header("Content-type: $this->contentType");
-            return "*{color: #f00;}";
-        }
-        // throw new \Exception("Resource não encontrado: verifique se a rota acessada foi cadastrada
-        //  corretamente em Routes/RouteList.php", 1);
+        //registra rotas relativas aos arquivos e diretorios existentes na pasta public
+        $resourceRoutes = new RouteRegister;
+        $resourceRoutes->registerFileRoutes($resourceRoutes, $this->projectMainDirectory.'public');
         
+        //retorna um arquivo como resposta da solicitação http
+        if (in_array($this->requestedUri,$resourceRoutes->getExistingRoutes())) {
+            return $this->getFileResource($this->requestedUri, $resourceRoutes);
+        }
+
+        throw new \Exception("Resource não encontrado: verifique se a rota acessada foi cadastrada
+         corretamente em Routes/RouteList.php", 1);
         return "not found"; 
+    }
+
+    
+    /**
+     * Retorna a chamada de uma controller para gerar a resposta de um request HTTP
+     *
+     * @param  mixed $route
+     * @param  mixed $namespace
+     * @return void
+     */
+    public function getControllerResource(RouteRegister $route, string $namespace)
+    {
+        $resourcePosition = array_search($this->requestedUri, $route->getExistingRoutes());
+        $resource = [
+            $namespace.ucfirst($route->getResourceController($resourcePosition))."Controller",
+            $route->getResourceMethod($resourcePosition)
+        ];
+        $resourceParameters = [
+            //  "viewObj" => new View()
+        ];
+        return call_user_func_array($resource, $resourceParameters);    
+    }
+    
+    /**
+     * Retorna uma requisição HTTP do tipo get com um arquivo solicitado
+     *
+     * @param  string $requestedUri
+     * @param  RouteRegister $resourceRoutes
+     * @return void
+     */
+    public function getFileResource(string $requestedUri, RouteRegister $resourceRoutes)
+    {
+        $resourcePosition = array_search($this->requestedUri, $resourceRoutes->getExistingRoutes());
+
+        if($resourceRoutes->getTypeOfExistingRoutes()[$resourcePosition] !== "get"){
+            throw new HttpVerbException("Esta pagina aceita apenas requisições do tipo GET", 1);
+            return "";
+        }
+
+        header("Content-type: $this->contentType");
+        
+        $path = $this->projectMainDirectory."public".$this->requestedUri;
+        
+        return file_get_contents($path);
     }
 }
