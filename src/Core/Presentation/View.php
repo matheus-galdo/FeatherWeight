@@ -11,7 +11,7 @@ class View{
     {
         $loader = new FilesystemLoader(__DIR__.'/../../views');
         $twig = new Environment($loader, [
-            'cache' => __DIR__.'../../cache',
+            'cache' => __DIR__.'/../../cache',
             'auto_reload' => true,
         ]);
 

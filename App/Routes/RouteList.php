@@ -1,8 +1,10 @@
 <?php
 namespace App\Routes;
-use Core\Route\RouteRequest;
 
-class RouteList{    
+use FeatherWeight\Route\RouteInterface;
+use FeatherWeight\Route\RouteRegister;
+
+class RouteList implements RouteInterface{    
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -12,7 +14,7 @@ class RouteList{
     | automaticamente carregadas pelo core do framework que as deixará disponíveis
     |
     */
-    public function __construct(RouteRequest $route){
+    public function createRoutes(RouteRegister $route){
         $route->get("/", "start");
         $route->get("salve", "test");
         $route->get("outra", "start@logar");

@@ -1,5 +1,6 @@
 {
 	"appName": "Feather",
+	"mainDirectory": "miniFramework",
     "enviroment": "development",
 	"server": "localhost",
 

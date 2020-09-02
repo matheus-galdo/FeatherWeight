@@ -1,8 +1,6 @@
 <?php
 
-use Core\Core;
-
-
+use FeatherWeight\Core;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use \Whoops\Handler\PrettyPageHandler;
@@ -26,7 +24,6 @@ $core = new Core();
 
 
 
-
 //TESTES
 
 date_default_timezone_set('America/Sao_Paulo');
@@ -37,52 +34,57 @@ date_default_timezone_set('America/Sao_Paulo');
 
 
 
-$log = new Logger("microFramework");
-$log->pushHandler(new StreamHandler('log/history.log'), Logger::WARNING);
+// $log = new Logger("featherWeightFramework");
+// $log->pushHandler(new StreamHandler('log/history.log'), Logger::WARNING);
+// // $log->warning('Foo');
+// // $log->error('Bar');
+
+// var_dump($_SERVER);
+// $log->log(200, 'acessado com sucesso', [$_SERVER['SERVER_NAME']]);
 
 
-$dateTime = new DateTime();
-$dateInterval = new DateInterval("P1W");
-$datePerido = new DatePeriod($dateTime, $dateInterval, 5);
-$dateTime->add($dateInterval);
+// $dateTime = new DateTime();
+// $dateInterval = new DateInterval("P1W");
+// $datePerido = new DatePeriod($dateTime, $dateInterval, 5);
+// $dateTime->add($dateInterval);
 
-echo PHP_EOL;
-
-
-$str = "Iñtërnâtiônàlizaetion";
-echo ($str).PHP_EOL;
-echo mb_strlen($str).PHP_EOL;
-echo strlen($str).PHP_EOL;
+// echo PHP_EOL;
 
 
+// $str = "Iñtërnâtiônàlizaetion";
+// echo ($str).PHP_EOL;
+// echo mb_strlen($str).PHP_EOL;
+// echo strlen($str).PHP_EOL;
 
 
-// throw new PDOException("erro de um negocio ai", 1);
-
-try {
-    // throw new Exception("erro de um negocio ai", 1);
-    $str = fopen("aa");
-    $conn = new PDO("aaaabugado", "root", "");
-
-    $str = fopen("aa");
 
 
-    echo $str;
-} catch (Exception $e) {
-    // throw $e;
-} catch (\Exception $a ){
-    // throw $a;
-}
+// // throw new PDOException("erro de um negocio ai", 1);
 
-echo ($str).PHP_EOL;
+// try {
+//     // throw new Exception("erro de um negocio ai", 1);
+//     $str = fopen("aa");
+//     $conn = new PDO("aaaabugado", "root", "");
 
-
-// $json = file_get_contents("https://viacep.com.br/ws/05821100/json/");
-// echo $json;
+//     $str = fopen("aa");
 
 
-foreach ($datePerido as $value) {
-    echo $value->format("d-M-Y").PHP_EOL;
-}
+//     echo $str;
+// } catch (Exception $e) {
+//     // throw $e;
+// } catch (\Exception $a ){
+//     // throw $a;
+// }
+
+// echo ($str).PHP_EOL;
+
+
+// // $json = file_get_contents("https://viacep.com.br/ws/05821100/json/");
+// // echo $json;
+
+
+// foreach ($datePerido as $value) {
+//     echo $value->format("d-M-Y").PHP_EOL;
+// }
 // echo($datePerido->format("d-M-Y"));
 

@@ -1,14 +1,14 @@
 <?php
-namespace Core\Route;
+namespace FeatherWeight\Route;
 
 use App\Controller\StartController;
 use App\Controller\TestController;
 use Core\Presentation\View;
 
 /**
- * Cria e gerencia as Rotas da aplicação
+ * Registra todas as Rotas definidas pela da aplicação
  */
-class RouteRequest{
+class RouteRegister{
     protected $routeList;
     protected $routeListType;
     protected $resourceController;
@@ -16,10 +16,10 @@ class RouteRequest{
     
         
     /**
-     * Recebe uma requisição GET e carrega os arquivos referentes a rota solicitada
+     * Registra uma rota GET e define qual recurso requisitar quando a rota for acessada
      * 
      * @param  string $uri
-     * [required] URI da rota solicitada.
+     * [required] URI da rota a ser registrada.
      * 
      * @param  string|closure $resource
      * [required] Nome da classe, nome da classe@metodo ou função closure que a rota deverá
@@ -32,16 +32,15 @@ class RouteRequest{
      */
     public function get(string $uri, $resource, array $data = [])
     {
-        $this->prepereRequestedMethod("get", $uri, $resource, $data);
-        $a = new StartController();
+        $this->registerRoute("get", $uri, $resource, $data);
     }
 
         
     /**
-     * Recebe uma requisição POST e carrega os arquivos referentes a rota solicitada
+     * Registra uma rota POST e define qual recurso requisitar quando a rota for acessada
      * 
      * @param  string $uri
-     * [required] URI da rota solicitada.
+     * [required] URI da rota a ser registrada.
      * 
      * @param  string|closure $resource
      * [required] Nome da classe, nome da classe@metodo ou função closure que a rota deverá
@@ -54,7 +53,7 @@ class RouteRequest{
      */
     public function post(string $uri, $resource, array $data = [])
     {
-        $this->prepereRequestedMethod("post", $uri, $resource, $data);
+        $this->registerRoute("post", $uri, $resource, $data);
     }
 
     public function view($uri, $data = [])
@@ -65,7 +64,8 @@ class RouteRequest{
 
     
     /**
-     * Prepara a requisição de um método da controller de acordo com o verbo http definido
+     * Registra uma rota, seu verbo HTTP, o resource a ser requisitado quando a rota for acessada e os
+     * parâmetros necessários para a execução do resource 
      *
      * @param  string $httpVerb
      * @param  string $uri
@@ -73,7 +73,7 @@ class RouteRequest{
      * @param  array $data
      * @return void
      */
-    public function prepereRequestedMethod(string $httpVerb, string $uri, $resource, array $data = [])
+    public function registerRoute(string $httpVerb, string $uri, $resource, array $data = [])
     {
         $uri = ($uri == "/")? "": $uri;
         $this->routeList[] = "/".$uri;
@@ -94,47 +94,18 @@ class RouteRequest{
         }
     }
 
-    
-    
-    
-    /**
-     * Executa um método de uma controller em callback de acordo com a rota especificada  
-     *
-     * @param  mixed $requestedUri
-     * @return callback
-     */
-    public function requestController(string $requestedUri, string $namespace = "App\\Controller\\")
-    {   
-        $appName = "miniFramework"; //definir nas configs !important
-        $requestedUri = substr($requestedUri, strpos($requestedUri,$appName) + strlen($appName));
-
-        if (in_array($requestedUri,$this->routeList)) {
-            $resourcePosition = array_search($requestedUri, $this->routeList);
-
-            $resource = [
-                $namespace.ucfirst($this->resourceController[$resourcePosition])."Controller",
-                $this->resourceMethod[$resourcePosition]
-            ];
-
-            $resourceParameters = [
-                "viewObj" => new View()
-            ];
-
-
-            
-            return call_user_func_array($resource, $resourceParameters);
-            
-        }
-        return "view de erro 401"; 
-    }
-    
-    /**
-     * Lista todas as rotas existentes na aplicação (debugging)
-     *
-     * @return void
-     */
-    public function listarRotas()
+    public function getExistingRoutes()
     {
-        var_dump($this->routeList);
+        return $this->routeList;
+    }
+
+    public function getResourceMethod(int $position)
+    {
+        return $this->resourceMethod[$position];
+    }
+
+    public function getResourceController(int $position)
+    {
+        return $this->resourceController[$position];
     }
 }

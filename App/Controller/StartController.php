@@ -5,10 +5,10 @@ namespace App\Controller;
 use Core\Presentation\View;
 
 class StartController{
-    public static function index(View $view)
+    public static function index()
     {
-        // return "isso aqui é o method INDEX função da controller TEST";
-        return $view->render("opa");
+        return "isso aqui é o method INDEX função da controller TEST";
+        // return $view->render("opa");
     }
 
     public static function logar()

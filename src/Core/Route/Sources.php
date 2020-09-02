@@ -1,9 +1,10 @@
 <?php
-namespace Core\Presentation;
+namespace FeatherWeight\Route;
 
-use Core\Route\RouteRequest;
+use FeatherWeight\Route\RouteInterface;
+use FeatherWeight\Route\RouteRegister;
 
-class Sources{    
+class Sources  implements RouteInterface{    
     /*
     |--------------------------------------------------------------------------
     | Web Routes - Sources
@@ -13,14 +14,9 @@ class Sources{
     | imagens, videos, etc.
     |
     */
-    public function __construct(RouteRequest $route){
+    public function createRoutes(RouteRegister $route){
         $route->get("css/main.css", "test@css");
         $route->get("js/main.js", "test@js");
         $route->get("images/delcidio.jpg", "test@image");
     }
 }
-
-
-
-
-alvaro ramos 2216 4º parada

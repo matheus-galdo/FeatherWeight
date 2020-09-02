@@ -49,6 +49,6 @@ class __TwigTemplate_bb2ffcf67bef3503a3a706b45019bd90ff27e6caef0f9630e13f45d4159
 
     public function getSourceContext()
     {
-        return new Source("", "opa.html", "C:\\wamp64\\www\\testes\\miniFramework\\views\\opa.html");
+        return new Source("", "opa.html", "C:\\wamp64\\www\\miniFramework\\views\\opa.html");
     }
 }
