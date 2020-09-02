@@ -12,7 +12,7 @@ essenciais de desenvolvimento em PHP sem exigir grandes configurações.
 
 ## Instalação
 ## Documentação
-[preview]: https://github.com/galdo0139/FeatherWeight/blob/master/readme/preview.png?raw=true
+<img src="https://github.com/galdo0139/FeatherWeight/blob/master/readme/preview.png?raw=true" alt="preview">
 
 ## Componentes
 
