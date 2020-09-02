@@ -1,6 +1,5 @@
 # MiniFramework
-
-[logo]: https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png "Logo Lightweight Framework"
+<img src="https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png?raw=true" alt="Logo Lightweight Framework">
 
 ## Descrição
 
