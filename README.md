@@ -1,6 +1,6 @@
 # MiniFramework
 
-[logo]: "https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png "Logo Lightweight Framework"
+[logo]: https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png "Logo Lightweight Framework"
 
 ## Descrição
 
@@ -12,7 +12,7 @@ essenciais de desenvolvimento em PHP sem exigir grandes configurações.
 
 ## Instalação
 ## Documentação
-[preview]: https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png 
+[preview]: https://github.com/galdo0139/FeatherWeight/blob/master/readme/preview.png?raw=true
 
 ## Componentes
 
