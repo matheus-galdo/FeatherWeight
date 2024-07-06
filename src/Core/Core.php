@@ -18,6 +18,4 @@ class Core{
         //devolve um respose
         echo $app->HttpResponse();
     }
-
-    
 }

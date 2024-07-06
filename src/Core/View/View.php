@@ -23,7 +23,8 @@ class View{
         $fileName = str_replace(".html", "", $fileName);
         $fileName .= ".html";
 
-        $context['publicPath'] = "/".APLICATION_NAME."/public/";
+        $context['publicPath'] = "/".MAIN_DIRECTORY."/public/";
+        $context['homePath'] = "/".MAIN_DIRECTORY."/";
         return $this->twigEnviroment->render($fileName, $context);
     }
 
@@ -33,15 +34,16 @@ class View{
 
         $cssString = "";
         foreach ($cssFiles as $value) {
-            $cssString .= "<link rel='stylesheet' href='/".APLICATION_NAME."/public/css/{$value}'>";
+            $cssString .= "<link rel='stylesheet' href='/".MAIN_DIRECTORY."/public/css/{$value}'>";
         }
         return $this->render('template.html', [
-            'publicPath' => "/".APLICATION_NAME."/public/",
+            'publicPath' => "/".MAIN_DIRECTORY."/public/",
+            'homePath' => "/".MAIN_DIRECTORY."/",
             'title' => $pageName,
             'content' => $content,
             'style' => $cssString,
-            'home' =>  "/".APLICATION_NAME,
-            'maincss' => "/".APLICATION_NAME."css/main.css",
+            'home' =>  "/".MAIN_DIRECTORY,
+            'maincss' => "/".MAIN_DIRECTORY."css/main.css",
         ]);
 
     }

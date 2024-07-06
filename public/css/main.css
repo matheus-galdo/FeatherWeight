@@ -21,8 +21,12 @@ body, #main-container{
     justify-content: center;
 }
 
-#main-container img{
+#main-container .logo-link{
     width: 60%;
+}
+
+#main-container img{
+    width: 100%;
 }
 
 #main-container .home-links{
@@ -43,3 +47,10 @@ body, #main-container{
 #main-container .home-links a:hover{
     color: #086bec;
 }
+
+#main-container h1.erro404{
+    color: #aaa;
+    font-family: Arial;
+    font-size: 1.8rem;
+}
+

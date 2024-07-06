@@ -2,6 +2,7 @@
 namespace FeatherWeight\Http;
 
 use App\Routes\RouteList;
+use FeatherWeight\Config\Config;
 use FeatherWeight\View\View;
 use FeatherWeight\Route\Sources;
 use FeatherWeight\Route\RouteInterface;
@@ -28,8 +29,8 @@ class HttpHandler{
         $this->requestedUri = $requestData->REQUEST_URI;
 
         
-        $configurations = json_decode(file_get_contents(__DIR__."/../../../config/config.json"));    
-        define("APLICATION_NAME", $configurations->mainDirectory);
+        $config = new Config();
+        
 
         $filesExtensions = [
             //image files
@@ -58,7 +59,7 @@ class HttpHandler{
 
         $this->requestedUri = substr(
             $this->requestedUri, 
-            strpos($this->requestedUri,$configurations->mainDirectory) + strlen($configurations->mainDirectory)
+            strpos($this->requestedUri,MAIN_DIRECTORY) + strlen(MAIN_DIRECTORY)
         );
     }
 
@@ -70,11 +71,13 @@ class HttpHandler{
      * @return callback
      */
     public function HttpResponse(string $namespace = "App\\Controller\\")
-    {    
-        $whoops = new Run();
-        $whoops->pushHandler(new PrettyPageHandler);
-        $whoops->register(); //em caso de algum erro de execução, chama o prettyPageHandler para debugar a pagina
-
+    {   
+        if(ENVIROMENT == "development" || ENVIROMENT == "updating"){
+            //em caso de algum erro de execução, chama o prettyPageHandler para debugar a pagina
+            $whoops = new Run();
+            $whoops->pushHandler(new PrettyPageHandler);
+            $whoops->register();
+        }
 
         
         //registra as rotas definidas pelo desenvolvedor da aplicação
@@ -82,6 +85,7 @@ class HttpHandler{
         $aplicattionRoutes = new RouteList;
         $aplicattionRoutes->createRoutes($route);
       
+        
         //retorna a chamada de uma controller
         if (in_array($this->requestedUri,$route->getExistingRoutes())) {
             return $this->getControllerResource($route, $namespace);

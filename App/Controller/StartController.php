@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use FeatherWeight\Database\Database;
 use FeatherWeight\View\View;
 
 class StartController{
@@ -16,5 +17,15 @@ class StartController{
     {
         $content = $view->render("404");
         return $view->renderTemplate("404 - Not Found", $content, ["teste" => "main.css"]);
+    }
+
+
+    public static function list()
+    {
+        $db = new Database();
+
+        $result = $db->select('news');
+
+        var_dump($result);
     }
 }

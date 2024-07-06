@@ -1,10 +1,11 @@
 {
 	"appName": "Feather",
 	"mainDirectory": "miniFramework",
-    "enviroment": "development",
+	"enviroment": "development",
+	"timezone": "America/Sao_Paulo",
+
+
 	"server": "localhost",
-
-
 	"dbDriver": "mysqls",
 	"dbHost": "127.0.0.1",
 	"dbName": "zerohora",

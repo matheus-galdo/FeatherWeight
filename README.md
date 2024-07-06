@@ -1,4 +1,7 @@
 # MiniFramework
+
+O framework mais leve e mais poderoso da sua categoria, que permite criar aplicações rápidas e ágeis
+
 <img src="https://github.com/galdo0139/FeatherWeight/raw/master/public/images/logoFull.png?raw=true" alt="Logo Lightweight Framework">
 
 ## Descrição

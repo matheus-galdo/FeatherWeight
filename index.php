@@ -35,7 +35,6 @@ $core = new Core();
 
 
 
-
 // $log = new Logger("featherWeightFramework");
 // $log->pushHandler(new StreamHandler('log/history.log'), Logger::WARNING);
 // // $log->warning('Foo');
